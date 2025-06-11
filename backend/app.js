@@ -46,7 +46,7 @@ app.use(methodOverride("_method"));
 connectDB();
 
 // Routes
-app.use('/', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api', dashboardRoutes);
 
 app.listen(port, () => {

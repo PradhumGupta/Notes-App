@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const axiosInstance = axios.create({
   withCredentials: true, // Send cookies with requests
 });
+
+export const login = async () => {
+    const response = await axiosInstance.get(`${API_URL}/auth/google`);
+    return response.data;
+};
 
 export const getNotes = async (page) => {
   try {
