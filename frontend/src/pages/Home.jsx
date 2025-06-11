@@ -1,8 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../services/api";
+import { API_URL, login } from "../services/api";
 
 function Home() {
   const navigate = useNavigate();
+  async function handleLogin() {
+    try {
+      await login();
+      navigate("/dashboard"); // Redirect to dashboard
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <>
       <div className="container-fluid container-fluid-custom">
@@ -16,7 +24,7 @@ function Home() {
                 Notes is a simple to use free note taking app made with MERN
                 Technologies
               </p>
-              <button className="btn btn-primary btn-lg" onClick={() => navigate(`${API_URL}/auth/google`)}>
+              <button className="btn btn-primary btn-lg" onClick={handleLogin}>
                 Try Notes, it's FREE!
               </button>
             </div>
