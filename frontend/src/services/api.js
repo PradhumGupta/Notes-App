@@ -35,3 +35,5 @@ export const deleteNote = async (id) => {
   const response = await axiosInstance.delete(`${API_URL}/dashboard/item-delete/${id}`);
   return response.data
 };
+
+
