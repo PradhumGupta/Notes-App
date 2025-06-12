@@ -47,6 +47,10 @@ app.use(methodOverride("_method"));
 // Connect to Database
 connectDB();
 
+// Routes
+app.use('/', authRoutes);
+app.use('/api', dashboardRoutes);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -57,10 +61,6 @@ app.use(express.static(frontendPath));
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
-
-// Routes
-app.use('/', authRoutes);
-app.use('/api', dashboardRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on ${port}`);
