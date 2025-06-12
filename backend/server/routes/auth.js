@@ -45,10 +45,19 @@ router.get('/auth/google',
 
 // Retrieve user data
 router.get('/auth/google/callback', 
-    passport.authenticate('google', { 
+    (req, res, next) => {
+        res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+        res.header("Access-Control-Allow-Credentials", "true");
+        next();
+    },
+    passport.authenticate('google', {
         failureRedirect: '/login-failure',
-        successRedirect: `${process.env.FRONTEND_URL}/dashboard`
-    })
+        session: true,
+    }), 
+    (req, res) => {
+        // Manual redirect after session is safely established
+        res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+    }
 );
 
 // Route if something goes wrong
