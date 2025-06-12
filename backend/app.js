@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 app.use(morgan("dev"))
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL ,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -29,8 +29,8 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URI
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: true,
+        sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
 }));
