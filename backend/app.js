@@ -9,11 +9,13 @@ import MongoStore from "connect-mongo";
 import authRoutes from './server/routes/auth.js';
 import cors from "cors";
 import morgan from "morgan";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(morgan("dev"))
+app.use(morgan("dev"));
 
 app.use(cors({
     origin: process.env.FRONTEND_URL ,
@@ -45,9 +47,20 @@ app.use(methodOverride("_method"));
 // Connect to Database
 connectDB();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const frontendPath = path.join(__dirname, '../frontend/dist'); // adjust if needed
+
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 // Routes
 app.use('/', authRoutes);
-app.use('/', dashboardRoutes);
+app.use('/api', dashboardRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on ${port}`);
