@@ -46,8 +46,8 @@ app.use(methodOverride("_method"));
 connectDB();
 
 // Routes
-app.use('/api', authRoutes);
-app.use('/api', dashboardRoutes);
+app.use('/', authRoutes);
+app.use('/', dashboardRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on ${port}`);
