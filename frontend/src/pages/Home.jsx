@@ -1,15 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { API_URL, login } from "../services/api";
+
+import { API_URL } from "../services/api";
 
 function Home() {
-  const navigate = useNavigate();
   async function handleLogin() {
-    try {
-      await login();
-      navigate("/dashboard"); // Redirect to dashboard
-    } catch (err) {
-      console.error(err);
-    }
+    window.location.href = `${API_URL}/auth/google`;
   }
   return (
     <>

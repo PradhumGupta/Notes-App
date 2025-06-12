@@ -6,15 +6,6 @@ const axiosInstance = axios.create({
   withCredentials: true, // Send cookies with requests
 });
 
-export const login = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL}/auth/google`);
-    return response.data;
-  } catch (error) {
-    console.error("Error logging in:", error)
-  }
-};
-
 export const getNotes = async (page) => {
   try {
     const response = await axiosInstance.get(`${API_URL}/dashboard?page=${page}`);
