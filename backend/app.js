@@ -56,10 +56,17 @@ const __dirname = path.dirname(__filename);
 
 const frontendPath = path.join(__dirname, '../frontend/dist'); // adjust if needed
 
-app.use(express.static(frontendPath));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(frontendPath));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(frontendPath, 'index.html'));
+    });
+}
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
 app.listen(port, () => {
