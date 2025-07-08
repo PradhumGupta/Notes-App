@@ -2,7 +2,7 @@
 import { API_URL } from "../services/api";
 
 function Home() {
-  async function handleLogin() {
+  function handleLogin() {
     window.location.href = `${API_URL}/auth/google`;
   }
   return (
