@@ -39,7 +39,7 @@ const dashboard = async (req, res, next) => {
         
     } catch (error) {
         console.error(error);
-        es.json({message: "Error occurred", error});
+        res.json({message: "Error occurred", error});
     }
 };
 
